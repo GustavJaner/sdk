@@ -354,6 +354,23 @@ type (
 	}
 )
 
+type WhereClause struct {
+	Type     string   `json:"type,omitempty"`
+	Name     string   `json:"name,omitempty"`
+	Params   []string `json:"params,omitempty"`
+	Datatype string   `json:"datatype,omitempty"`
+}
+
+type GroupClause struct {
+	Type   string   `json:"type,omitempty"`
+	Params []string `json:"params,omitempty"`
+}
+
+type SelectClause struct {
+	Params []string `json:"params,omitempty"`
+	Type   string   `json:"type,omitempty"`
+}
+
 // for an any panel
 type Target struct {
 	RefID      string `json:"refId"`
@@ -361,24 +378,13 @@ type Target struct {
 	Hide       bool   `json:"hide,omitempty"`
 
 	// For PostgreSQL
-	Table        string `json:"table,omitempty"`
-	TimeColumn   string `json:"timeColumn,omitempty"`
-	MetricColumn string `json:"metricColumn,omitempty"`
-	RawSql       string `json:"rawSql,omitempty"`
-	Select       [][]struct {
-		Params []string `json:"params,omitempty"`
-		Type   string   `json:"type,omitempty"`
-	} `json:"select,omitempty"`
-	Where []struct {
-		Type     string   `json:"type,omitempty"`
-		Name     string   `json:"name,omitempty"`
-		Params   []string `json:"params,omitempty"`
-		Datatype string   `json:"datatype,omitempty"`
-	} `json:"where,omitempty"`
-	Group []struct {
-		Type   string   `json:"type,omitempty"`
-		Params []string `json:"params,omitempty"`
-	} `json:"group,omitempty"`
+	Table        string           `json:"table,omitempty"`
+	TimeColumn   string           `json:"timeColumn,omitempty"`
+	MetricColumn string           `json:"metricColumn,omitempty"`
+	RawSql       string           `json:"rawSql,omitempty"`
+	Select       [][]SelectClause `json:"select,omitempty"`
+	Where        []WhereClause    `json:"where,omitempty"`
+	Group        []GroupClause    `json:"group,omitempty"`
 
 	// For Prometheus
 	Expr           string `json:"expr,omitempty"`
