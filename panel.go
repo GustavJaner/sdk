@@ -371,6 +371,28 @@ type SelectClause struct {
 	Type   string   `json:"type,omitempty"`
 }
 
+// For Elasticsearch
+type MetricsClause struct {
+	ID    string `json:"id"`
+	Field string `json:"field"`
+	Type  string `json:"type"`
+}
+
+type SettingsClause struct {
+	Interval    string `json:"interval,omitempty"`
+	MinDocCount int    `json:"min_doc_count"`
+	Order       string `json:"order,omitempty"`
+	OrderBy     string `json:"orderBy,omitempty"`
+	Size        string `json:"size,omitempty"`
+}
+
+type BucketAggsClause struct {
+	ID       string         `json:"id"`
+	Field    string         `json:"field"`
+	Type     string         `json:"type"`
+	Settings SettingsClause `json:"settings"`
+}
+
 // for an any panel
 type Target struct {
 	RefID      string `json:"refId"`
@@ -396,28 +418,13 @@ type Target struct {
 	Format         string `json:"format,omitempty"`
 
 	// For Elasticsearch
-	DsType  *string `json:"dsType,omitempty"`
-	Metrics []struct {
-		ID    string `json:"id"`
-		Field string `json:"field"`
-		Type  string `json:"type"`
-	} `json:"metrics,omitempty"`
-	Query      string `json:"query,omitempty"`
-	Alias      string `json:"alias,omitempty"`
-	RawQuery   bool   `json:"rawQuery,omitempty"`
-	TimeField  string `json:"timeField,omitempty"`
-	BucketAggs []struct {
-		ID       string `json:"id"`
-		Field    string `json:"field"`
-		Type     string `json:"type"`
-		Settings struct {
-			Interval    string `json:"interval,omitempty"`
-			MinDocCount int    `json:"min_doc_count"`
-			Order       string `json:"order,omitempty"`
-			OrderBy     string `json:"orderBy,omitempty"`
-			Size        string `json:"size,omitempty"`
-		} `json:"settings"`
-	} `json:"bucketAggs,omitempty"`
+	DsType     *string            `json:"dsType,omitempty"`
+	Metrics    []MetricsClause    `json:"metrics,omitempty"`
+	Query      string             `json:"query,omitempty"`
+	Alias      string             `json:"alias,omitempty"`
+	RawQuery   bool               `json:"rawQuery,omitempty"`
+	TimeField  string             `json:"timeField,omitempty"`
+	BucketAggs []BucketAggsClause `json:"bucketAggs,omitempty"`
 
 	// For Graphite
 	Target string `json:"target,omitempty"`
