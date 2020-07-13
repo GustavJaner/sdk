@@ -373,9 +373,12 @@ type SelectClause struct {
 
 // For Elasticsearch
 type MetricsClause struct {
-	ID    string `json:"id"`
-	Field string `json:"field"`
-	Type  string `json:"type"`
+	ID       string `json:"id"`
+	Field    string `json:"field"`
+	Type     string `json:"type"`
+	Settings struct {
+		Script string `json:"script,omitempty"`
+	} `json:"settings"`
 }
 
 type SettingsClause struct {
